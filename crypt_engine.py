@@ -299,7 +299,10 @@ def auto_hack_cesar(line, key=None):
         language = english_alphabet
         often_letters = letters_cesar_english
         often_percents = percents_cesar_english
-        accuracy = 5
+        if len(line) < 100:
+            accuracy = 500 // len(line)
+        else:
+            accuracy = 5
     else:
         language = russian_alphabet
         often_letters = letters_cesar_russian
@@ -307,7 +310,6 @@ def auto_hack_cesar(line, key=None):
         accuracy = 50
     for i in language:
         frequency.append(line.count(i) / len_no_spaces * 100)
-
     for x in range(len(often_letters)):
         for y in range(len(language)):
             if abs(often_percents[x] - frequency[y]) * 100 / often_percents[x] < accuracy:
@@ -315,7 +317,5 @@ def auto_hack_cesar(line, key=None):
                     possible_offsets.append(y - language.find(often_letters[x]))
                 else:
                     possible_offsets.append(len(language) + y - language.find(often_letters[x]))
-
     offset = most_popular_item(possible_offsets)
     return cesar_decrypt(line, offset)
-
