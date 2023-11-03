@@ -240,9 +240,9 @@ def decrypt_file(button1, button2, button3, button4, button5):
 
 
 def file_text_decrypt(in_file, out_file, crypt, key):
-    function = {"Шифр Цезаря": crypt_engine.cesar_encrypting, "Шифр Вернама": crypt_engine.verman_encrypting,
-                "Шифр Виженера": crypt_engine.visener_encrypting,
-                "Динамический Цезарь": crypt_engine.dynamic_cesar_encrypting,
+    function = {"Шифр Цезаря": crypt_engine.cesar_decrypt, "Шифр Вернама": crypt_engine.verman_decrypt,
+                "Шифр Виженера": crypt_engine.visener_decrypt,
+                "Динамический Цезарь": crypt_engine.dynamic_cesar_decrypt,
                 "Взлом Цезаря": crypt_engine.auto_hack_cesar}
     crypt = crypt.get()
     key = key.get()
