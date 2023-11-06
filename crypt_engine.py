@@ -151,10 +151,12 @@ def visener_encrypting(line, key):
     while len(key) < len(line):
         key += key
 
+    count = 0
     res = ''
     for i in range(len(line)):
         if line[i].isalpha():
-            res += table[language.find(key[i])][language.find(line[i])]
+            res += table[language.find(key[count])][language.find(line[i])]
+            count += 1
         else:
             res += line[i]
 
@@ -170,6 +172,7 @@ def verman_encrypting(line, key):
     :return: encrypted line
     """
 
+    count = 0
     line = line_formatting(line)
     key = line_formatting(key).lower().replace(' ', '')
     language = language_definition(line)
@@ -178,7 +181,8 @@ def verman_encrypting(line, key):
     res = ''
     for i in range(len(line)):
         if line[i].isalpha():
-            res += language[(language.find(line[i]) + language.find(key[i])) % len(language)]
+            res += language[(language.find(line[i]) + language.find(key[count])) % len(language)]
+            count += 1
         else:
             res += line[i]
 
@@ -222,9 +226,9 @@ def dynamic_cesar_decrypt(line, a):
     for i in line:
         if i.isalpha():
             res += language[(language.find(i) - a - offset) % len(language)]
+            offset += 1
         else:
             res += i
-        offset += 1
 
     return res
 
@@ -238,6 +242,7 @@ def verman_decrypt(line, key):
     :return: decrypted line
     """
 
+    count = 0
     line = line_formatting(line)
     key = line_formatting(key).lower().replace(' ', '')
     language = language_definition(line)
@@ -251,7 +256,8 @@ def verman_decrypt(line, key):
 
     for i in range(len(line)):
         if line[i].isalpha():
-            res += language[table[language.find(key[i])].index(line[i])]
+            res += language[table[language.find(key[count])].index(line[i])]
+            count += 1
         else:
             res += line[i]
 
@@ -273,10 +279,12 @@ def visener_decrypt(line, key):
     while len(key) < len(line):
         key += key
 
+    count = 0
     res = ''
     for i in range(len(line)):
         if line[i].isalpha():
-            res += language[(language.find(line[i]) - language.find(key[i])) % len(language)]
+            res += language[(language.find(line[i]) - language.find(key[count])) % len(language)]
+            count += 1
         else:
             res += line[i]
 
@@ -302,7 +310,7 @@ def auto_hack_cesar(line, key=None):
         if len(line) < 100:
             accuracy = 500 // len(line)
         else:
-            accuracy = 5
+            accuracy = 10
     else:
         language = russian_alphabet
         often_letters = letters_cesar_russian
