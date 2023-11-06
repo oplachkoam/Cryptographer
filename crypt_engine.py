@@ -170,6 +170,7 @@ def verman_encrypting(line, key):
     :return: encrypted line
     """
 
+    count = 0
     line = line_formatting(line)
     key = line_formatting(key).lower().replace(' ', '')
     language = language_definition(line)
@@ -178,7 +179,8 @@ def verman_encrypting(line, key):
     res = ''
     for i in range(len(line)):
         if line[i].isalpha():
-            res += language[(language.find(line[i]) + language.find(key[i])) % len(language)]
+            res += language[(language.find(line[i]) + language.find(key[count])) % len(language)]
+            count += 0
         else:
             res += line[i]
 
@@ -238,6 +240,7 @@ def verman_decrypt(line, key):
     :return: decrypted line
     """
 
+    count = 0
     line = line_formatting(line)
     key = line_formatting(key).lower().replace(' ', '')
     language = language_definition(line)
@@ -251,7 +254,8 @@ def verman_decrypt(line, key):
 
     for i in range(len(line)):
         if line[i].isalpha():
-            res += language[table[language.find(key[i])].index(line[i])]
+            res += language[table[language.find(key[count])].index(line[i])]
+            count += 1
         else:
             res += line[i]
 
