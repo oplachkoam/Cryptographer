@@ -11,6 +11,9 @@ decrypted_text = None
 
 created_widgets = []
 
+WIDE = '600'  # window sizes
+HIGH = '700'
+
 
 def encrypt(button1, button2, button3, button4, button5):
     button_destroy(button1, button2, button3, button4, button5)
@@ -305,10 +308,7 @@ def create_buttons():
 
 def start_program():
     main = tkinter.Tk()
-    wide = '600'
-    high = '700'
     create_buttons()
     main.title("Cryptographer")
-    main.geometry(f'{wide}x{high}+100+100')
-
+    main.geometry(f'{WIDE}x{HIGH}+100+100')
     main.mainloop()

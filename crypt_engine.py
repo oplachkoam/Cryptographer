@@ -1,27 +1,31 @@
-russian_alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-english_alphabet = "abcdefghijklmnopqrstuvwxyz"
+class Constants:
+    russian_alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+    english_alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-visener_table_russian = [[0] * 33 for _ in range(33)]
-visener_table_english = [[0] * 26 for _ in range(26)]
+    visener_table_russian = [[0] * 33 for _ in range(33)]
+    visener_table_english = [[0] * 26 for _ in range(26)]
 
-letters_cesar_russian = ['о', 'е', 'а', 'и', 'н', 'т', 'с', 'р', 'в', 'л', 'к', 'м', 'д', 'п', 'у', 'я', 'ы', 'ь', 'г',
-                         'з', 'б', 'ч', 'й', 'х', 'ж', 'ш', 'ю', 'ц', 'щ', 'э', 'ф', 'ъ', 'ё']
-percents_cesar_russian = [11.0, 8.45, 8.01, 7.35, 6.70, 6.26, 5.47, 4.73, 4.54, 4.40, 3.49, 3.21, 2.98, 2.81, 2.62,
-                          2.01, 1.90, 1.74, 1.70, 1.65, 1.59, 1.44, 1.21, 0.97, 0.94, 0.73, 0.64, 0.48, 0.36, 0.32,
-                          0.26, 0.04, 0.04]
+    letters_cesar_russian = ['о', 'е', 'а', 'и', 'н', 'т', 'с', 'р', 'в', 'л', 'к', 'м', 'д', 'п', 'у', 'я', 'ы', 'ь',
+                             'г',
+                             'з', 'б', 'ч', 'й', 'х', 'ж', 'ш', 'ю', 'ц', 'щ', 'э', 'ф', 'ъ', 'ё']
+    percents_cesar_russian = [11.0, 8.45, 8.01, 7.35, 6.70, 6.26, 5.47, 4.73, 4.54, 4.40, 3.49, 3.21, 2.98, 2.81, 2.62,
+                              2.01, 1.90, 1.74, 1.70, 1.65, 1.59, 1.44, 1.21, 0.97, 0.94, 0.73, 0.64, 0.48, 0.36, 0.32,
+                              0.26, 0.04, 0.04]
 
-letters_cesar_english = ['e', 't', 'o', 'a', 'n', 'i', 'r', 's', 'h', 'd', 'l', 'c', 'f', 'u', 'm', 'p', 'y', 'w', 'g',
-                         'b', 'v', 'k', 'x', 'j', 'q', 'z']
-percents_cesar_english = [10.5, 7.2, 6.5, 6.3, 5.9, 5.5, 5.4, 5.2, 4.7, 3.5, 2.9, 2.3, 2.25, 2.25, 2.1, 1.75, 1.2, 1.2,
-                          1.1, 1.05, 0.8, 0.3, 0.2, 0.1, 0.1, 0.1]
+    letters_cesar_english = ['e', 't', 'o', 'a', 'n', 'i', 'r', 's', 'h', 'd', 'l', 'c', 'f', 'u', 'm', 'p', 'y', 'w',
+                             'g',
+                             'b', 'v', 'k', 'x', 'j', 'q', 'z']
+    percents_cesar_english = [10.5, 7.2, 6.5, 6.3, 5.9, 5.5, 5.4, 5.2, 4.7, 3.5, 2.9, 2.3, 2.25, 2.25, 2.1, 1.75, 1.2,
+                              1.2,
+                              1.1, 1.05, 0.8, 0.3, 0.2, 0.1, 0.1, 0.1]
 
-for i in range(33):
-    for j in range(33):
-        visener_table_russian[i][j] = russian_alphabet[(i + j) % 33]
+    for i in range(33):
+        for j in range(33):
+            visener_table_russian[i][j] = russian_alphabet[(i + j) % 33]
 
-for i in range(26):
-    for j in range(26):
-        visener_table_english[i][j] = english_alphabet[(i + j) % 26]
+    for i in range(26):
+        for j in range(26):
+            visener_table_english[i][j] = english_alphabet[(i + j) % 26]
 
 
 def most_popular_item(array):
@@ -55,16 +59,16 @@ def language_definition(line):
     rus_flag = False
     en_flag = False
     for i in line:
-        if i in russian_alphabet:
+        if i in Constants.russian_alphabet:
             rus_flag = True
-        if i in english_alphabet:
+        if i in Constants.english_alphabet:
             en_flag = True
     if rus_flag and en_flag:
         return None
     elif rus_flag:
-        return russian_alphabet
+        return Constants.russian_alphabet
     elif en_flag:
-        return english_alphabet
+        return Constants.english_alphabet
     else:
         return None
 
@@ -123,9 +127,11 @@ def dynamic_cesar_encrypting(line, a):
     line = line_formatting(line)
     res = ''
     language = language_definition(line)
+    count = 0
     for i in line:
         if i.isalpha():
-            res += language[(language.find(i) + a + len(res)) % len(language)]
+            res += language[(language.find(i) + a + count) % len(language)]
+            count += 1
         else:
             res += i
 
@@ -144,10 +150,10 @@ def visener_encrypting(line, key):
     line = line_formatting(line)
     key = line_formatting(key).lower().replace(' ', '')
     language = language_definition(line)
-    if language == russian_alphabet:
-        table = visener_table_russian
+    if language == Constants.russian_alphabet:
+        table = Constants.visener_table_russian
     else:
-        table = visener_table_english
+        table = Constants.visener_table_english
     while len(key) < len(line):
         key += key
 
@@ -246,10 +252,10 @@ def verman_decrypt(line, key):
     line = line_formatting(line)
     key = line_formatting(key).lower().replace(' ', '')
     language = language_definition(line)
-    if language == russian_alphabet:
-        table = visener_table_russian
+    if language == Constants.russian_alphabet:
+        table = Constants.visener_table_russian
     else:
-        table = visener_table_english
+        table = Constants.visener_table_english
     while len(key) < len(line):
         key += key
     res = ''
@@ -303,18 +309,18 @@ def auto_hack_cesar(line, key=None):
     possible_offsets = []
     line = line_formatting(line)
     len_no_spaces = len(line.replace(' ', ''))
-    if language_definition(line) == english_alphabet:
-        language = english_alphabet
-        often_letters = letters_cesar_english
-        often_percents = percents_cesar_english
-        if len(line) < 100:
-            accuracy = 500 // len(line)
+    if language_definition(line) == Constants.english_alphabet:
+        language = Constants.english_alphabet
+        often_letters = Constants.letters_cesar_english
+        often_percents = Constants.percents_cesar_english
+        if len(line) < 50:
+            accuracy = 500 / len(line)
         else:
             accuracy = 10
     else:
-        language = russian_alphabet
-        often_letters = letters_cesar_russian
-        often_percents = percents_cesar_russian
+        language = Constants.russian_alphabet
+        often_letters = Constants.letters_cesar_russian
+        often_percents = Constants.percents_cesar_russian
         accuracy = 50
     for i in language:
         frequency.append(line.count(i) / len_no_spaces * 100)

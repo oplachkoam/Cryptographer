@@ -9,8 +9,8 @@ class TestCryptEngine(unittest.TestCase):
         self.assertEqual(crypt_engine.most_popular_item([10, -5, 12, 1, 1, 14, 10, 10]), 10)
 
     def test_language_definition(self):
-        self.assertEqual(crypt_engine.language_definition("hello, world"), crypt_engine.english_alphabet)
-        self.assertEqual(crypt_engine.language_definition("привет, мир"), crypt_engine.russian_alphabet)
+        self.assertEqual(crypt_engine.language_definition("hello, world"), crypt_engine.Constants.english_alphabet)
+        self.assertEqual(crypt_engine.language_definition("привет, мир"), crypt_engine.Constants.russian_alphabet)
         self.assertEqual(crypt_engine.language_definition("hello, world привет, мир"), None)
         self.assertEqual(crypt_engine.language_definition("!!!{}{}.,\\//\t"), None)
 
